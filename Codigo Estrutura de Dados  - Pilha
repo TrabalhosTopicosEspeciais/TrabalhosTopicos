@@ -10,6 +10,8 @@ int menu(){
            "3- Desempilhar e  inserir em outra pilha\n"
            "4- Imprimir a nova pilha\n"
 		   "0-Sair\n");
+		   "4- Imprimir a nova pilha\n"
+		   "0-Sair\n");
     scanf("%d", &opc);
     return opc;
 }
