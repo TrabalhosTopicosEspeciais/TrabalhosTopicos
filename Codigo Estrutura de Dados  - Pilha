@@ -1,0 +1,166 @@
+#include <stdio.h>
+#include <string.h>
+#include<math.h>
+
+
+int menu(){
+    int opc;
+    printf("1- Inserir Pratos na pilha\n"
+           "2- Imprimir a pilha\n"
+           "3- Desempilhar e  inserir em outra pilha\n"
+           "4- Imprimir a nova pilha\n"
+		   "0-Sair\n");
+    scanf("%d", &opc);
+    return opc;
+}
+
+typedef struct{
+        char Nomeprograma[100];
+        int PID;
+}PROGRAMA;
+typedef struct{
+        int topoPilha;
+        PROGRAMA processo[5];
+}PILHA_PROCESSO;
+
+
+int isCheio(PILHA_PROCESSO *pilha){
+    return pilha->topoPilha == 5-1;
+}
+int isVazio(PILHA_PROCESSO *pilha){
+    return pilha->topoPilha == -1;
+}
+    
+void Inserir(PILHA_PROCESSO *pilha, PROGRAMA *processo){
+     pilha->topoPilha++;
+     pilha->processo[pilha->topoPilha] = *processo;
+     
+}    
+
+void imprimirPilha(PILHA_PROCESSO *pilha){
+     int i;
+     printf("\t\t\tConteudo da Pilha\n");
+     for(i = pilha->topoPilha; i >= 0; i--)
+         printf("\tPID %d ->> %s\n",pilha->processo[i].PID,pilha->processo[i].Nomeprograma);
+}   
+
+void DesempilharPilha(PILHA_PROCESSO *pilha, PILHA_PROCESSO *novaPilha){
+     int i;
+     for(i = pilha->topoPilha; i >= 0; i--){
+     	novaPilha->topoPilha++;
+     	novaPilha->processo[novaPilha->topoPilha] = pilha->processo[i];
+	 }
+         
+} 
+int main(){
+    PILHA_PROCESSO pilha, pilha2;
+    pilha.topoPilha = -1;
+    pilha2.topoPilha = -1;
+    PROGRAMA processo;
+    int opc;
+    int cont = 0;
+   
+    do{       
+       opc = menu();
+       switch(opc){
+           case 1:
+           	pilha.topoPilha = -1;
+           	cont = 0;
+                if(!isCheio(&pilha)){
+                	cont++;
+                
+					strcpy (processo.Nomeprograma,"Vermelho");		
+		 			fflush(stdin);    
+                    processo.PID = 1;
+                	Inserir(&pilha, &processo);
+                	printf("\n(1) - Prato Vermelho Inserido com sucesso: \n");
+                	system("pause");
+                
+                	
+                	strcpy (processo.Nomeprograma,"Verde");		
+		 			fflush(stdin);    
+                    processo.PID = 2;
+                	Inserir(&pilha, &processo);
+                	printf("\n(2) - Prato Verde Inserido com sucesso: \n");
+                	system("pause");
+                
+                	
+                	strcpy (processo.Nomeprograma,"Azul");		
+		 			fflush(stdin);    
+                    processo.PID = 3;
+                	Inserir(&pilha, &processo);
+                	
+                	printf("\n(3) - Prato Azul Inserido com sucesso: \n");
+                	system("pause");
+                
+                	
+                	strcpy (processo.Nomeprograma,"Branco");		
+		 			fflush(stdin);    
+                    processo.PID = 4;
+                	Inserir(&pilha, &processo);
+                	
+                	printf("\n(4) - Prato Branco Inserido com sucesso: \n");
+                	system("pause");
+                
+                	
+                	strcpy (processo.Nomeprograma,"Laranja");		
+		 			fflush(stdin);    
+                    processo.PID = 5;
+                	Inserir(&pilha, &processo);
+                	
+                	printf("\n(5) - Prato Laranja Inserido com sucesso: \n");
+                	system("pause");
+                	system("cls");
+                	
+     				
+                }
+                else
+                   printf("Pilha cheia, impossivel empilhar mais elementos\n");
+               
+           break;
+           case 2:
+           	
+                if(!isVazio(&pilha))
+                   imprimirPilha(&pilha);
+                else
+                   printf("Pilha vazia, impossivel Imprimir elementos\n");
+                   
+                system("pause");
+                system("cls");
+           break;
+           case 3:
+           		if(!isVazio(&pilha)){
+           			DesempilharPilha(&pilha, &pilha2);
+           			printf("Desempilhado com sucesso e inserido na segunda pilha\n");
+           			system("pause");
+                	system("cls");
+				   }
+                   
+                else
+                   printf("Pilha vazia, impossivel Desempilhar Pilha\n");
+                   
+                
+           break;
+           
+           case 4: 
+		   		if(!isVazio(&pilha2))
+                   imprimirPilha(&pilha2);
+                else
+                   printf("Pilha vazia, impossivel Imprimir elementos\n");
+                   
+                system("pause");
+                system("cls");
+		   break;
+		   case 0:
+		   		printf("\nFim");
+		   	break;
+           default: 
+		   	printf("Opcao invalida");
+           break;
+       }
+    }while(opc != 0);
+    
+    return 0;
+}
+
+
